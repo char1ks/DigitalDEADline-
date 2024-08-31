@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная страница</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h1>Список людей</h1>
+    <a th:href="@{/person/new}" class="btn btn-pink btn-lg">Добавить нового человека</a>
+    <table class="table table-bordered mt-3">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Полное имя</th>
+            <th>Дата рождения</th>
+            <th>Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="person : ${allPeople}">
+            <td th:text="${person.getId()}"></td>
+            <td th:text="${person.getFullName()}"></td>
+            <td th:text="${#dates.format(person.getBirthDate(), 'yyyy-MM-dd')}"></td>
+            <td>
+                <a th:href="@{/person/{id}(id=${person.getId()})}" class="btn btn-info">Просмотреть</a>
+                <a th:href="@{/person/{id}/edit(id=${person.getId()})}" class="btn btn-warning">Редактировать</a>
+                <form th:action="@{/person/{id}(id=${person.getId()})}" method="post" style="display:inline;">
+                    <input type="hidden" name="_method" value="delete"/>
+                    <button type="submit" class="btn btn-danger">Удалить</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

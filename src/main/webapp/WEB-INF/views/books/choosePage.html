@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Выбор книги</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .btn-custom {
+            transition: border-color 0.3s ease;
+        }
+        .btn-custom:hover {
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-4">Выберите книгу для человека с ID: <span th:text="${personId}"></span></h1>
+
+    <!-- Всплывающее уведомление -->
+    <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${successMessage}">
+        <span th:text="${successMessage}"></span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Название</th>
+            <th>Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="book : ${allBooksWithoutOwner}">
+            <td th:text="${book.getId()}"></td>
+            <td th:text="${book.getNomination()}"></td>
+            <td>
+                <form th:action="@{/book/{personId}/{bookId}/chooseBook(personId=${personId}, bookId=${book.getId()})}" th:method="PATCH" style="display:inline;">
+                    <button type="submit" class="btn btn-primary btn-custom">Выбрать</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a class="btn btn-secondary mt-3" th:href="@{/person}">Назад к списку людей</a>
+</div>
+</body>
+</html>

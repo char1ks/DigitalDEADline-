@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить нового человека</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h1>Добавить нового человека</h1>
+    <form th:action="@{/person}" th:object="${newPerson}" th:method="post">
+        <div class="form-group">
+            <label for="fullName">Полное имя:</label>
+            <input type="text" id="fullName" th:field="*{fullName}" class="form-control" required/>
+        </div>
+        <div class="form-group">
+            <label for="birthDate">Дата рождения:</label>
+            <input type="date" id="birthDate" th:field="*{birthDate}" class="form-control" required/>
+        </div>
+        <button type="submit" class="btn btn-pink btn-lg">Добавить</button>
+        <a th:href="@{/person}" class="btn btn-secondary btn-lg">Назад</a>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Список книг</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .search-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+        }
+        .search-input {
+            border-radius: 0.25rem 0 0 0.25rem; /* Закругленные углы для поля ввода */
+        }
+        .search-button {
+            border-radius: 0 0.25rem 0.25rem 0; /* Закругленные углы для кнопки */
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-4">Список книг</h1>
+
+    <!-- Поле поиска и кнопка -->
+    <div class="search-container">
+        <form th:action="@{/book/find}" th:method="GET" class="d-flex">
+            <input type="text" class="form-control search-input" name="nomination" placeholder="Поиск по названию" aria-label="Поиск">
+            <button class="btn btn-outline-secondary search-button" type="submit">
+                🔍 <!-- Смайлик лупы -->
+            </button>
+        </form>
+    </div>
+
+
+
+    <a class="btn btn-danger mb-3" th:href="@{/book/clearDeadLines}">Дедлайны</a>
+    <a class="btn btn-primary mb-3" th:href="@{/book/new}">Добавить новую книгу</a>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Название</th>
+            <th>Срок возврата</th>
+            <th>Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="book : ${allBooks}">
+            <td th:text="${book.getId()}"></td>
+            <td th:text="${book.getNomination()}"></td>
+            <td th:text="${#dates.format(book.getTimeToBack(), 'yyyy-MM-dd')}"></td>
+            <td>
+                <a class="btn btn-info" th:href="@{/book/{id}(id=${book.getId()})}">Просмотреть</a>
+                <a class="btn btn-warning" th:href="@{/book/{id}/edit(id=${book.getId()})}">Редактировать</a>
+                <form th:action="@{/book/{id}(id=${book.getId()})}" method="post" style="display:inline;">
+                    <input type="hidden" name="_method" value="delete">
+                    <button type="submit" class="btn btn-danger">Удалить</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

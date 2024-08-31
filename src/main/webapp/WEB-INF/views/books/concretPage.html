@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Книга</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-4">Информация о книге</h1>
+    <p><strong>ID:</strong> <span th:text="${concretBook.getId()}"></span></p>
+    <p><strong>Название:</strong> <span th:text="${concretBook.getNomination()}"></span></p>
+    <p><strong>Срок возврата:</strong> <span th:text="${#dates.format(concretBook.getTimeToBack(), 'yyyy-MM-dd')}"></span></p>
+    <a class="btn btn-secondary mt-3" th:href="@{/book}">Назад к списку книг</a>
+</div>
+</body>
+</html>

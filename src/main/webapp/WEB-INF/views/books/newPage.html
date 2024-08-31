@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить новую книгу</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-4">Добавить новую книгу</h1>
+    <form th:method="POST" th:action="@{/book}" th:object="${newBook}">
+        <div class="form-group">
+            <label for="nomination">Название:</label>
+            <input type="text" id="nomination" class="form-control" th:field="*{nomination}" required>
+        </div>
+        <div class="form-group">
+            <label for="timeToBack">Срок возврата:</label>
+            <input type="date" id="timeToBack" class="form-control" th:field="*{timeToBack}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Добавить</button>
+    </form>
+    <a class="btn btn-secondary mt-3" th:href="@{/book}">Назад к списку книг</a>
+</div>
+</body>
+</html>

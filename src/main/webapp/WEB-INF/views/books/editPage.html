@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактировать книгу</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-4">Редактировать книгу</h1>
+    <form th:action="@{/book/{id}(id=${editBook.id})}" th:method="POST" th:object="${editBook}">
+        <input type="hidden" name="_method" value="patch">
+        <div class="form-group">
+            <label for="nomination">Название:</label>
+            <input type="text" id="nomination" class="form-control" th:field="*{nomination}" required>
+        </div>
+        <div class="form-group">
+            <label for="timeToBack">Срок возврата:</label>
+            <input type="date" id="timeToBack" class="form-control" th:field="*{timeToBack}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+    </form>
+    <a class="btn btn-secondary mt-3" th:href="@{/book}">Назад к списку книг</a>
+</div>
+</body>
+</html>

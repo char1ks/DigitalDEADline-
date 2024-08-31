@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Информация о человеке</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h1>Информация о человеке</h1>
+    <div class="card">
+        <div class="card-body">
+            <p><strong>ID:</strong> <span th:text="${concretPerson.getId()}"></span></p>
+            <p><strong>Полное имя:</strong> <span th:text="${concretPerson.getFullName()}"></span></p>
+            <p><strong>Дата рождения:</strong> <span th:text="${#dates.format(concretPerson.getBirthDate(), 'yyyy-MM-dd')}"></span></p>
+
+            <!-- Новое поле "Книга" -->
+            <div th:if="${concretPerson.getReturnBook() == T(model.returnBook).YES}">
+                <p><strong>Книга:</strong> <span th:text="${concretPerson.getBookName()}"></span></p>
+                <p><strong>Вернуть до:</strong> <span th:text="${#dates.format(concretPerson.getBackBookTo(), 'yyyy-MM-dd')}"></span></p>
+            </div>
+        </div>
+    </div>
+    <a th:href="@{/person/{id}/edit(id=${concretPerson.getId()})}" class="btn btn-warning btn-lg">Редактировать</a>
+    <form th:action="@{/person/{id}(id=${concretPerson.getId()})}" method="post" style="display:inline;">
+        <input type="hidden" name="_method" value="delete"/>
+        <button type="submit" class="btn btn-danger btn-lg">Удалить</button>
+    </form>
+    <a th:href="@{/person}" class="btn btn-secondary btn-lg">Назад</a>
+</div>
+</body>
+</html>
